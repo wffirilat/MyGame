@@ -28,14 +28,16 @@ class Player(Entity):
         self.inventory = []
 
     def chooseClass(self):
-        choice = None
-        while choice is None:
-            choice = input('''Choose a class:
+        choiceDialog = '''Choose a class:
     Warrior: High health, moderate damage, high armor.
     Mage: Low health, very high damage, low armor.
     Rogue: Moderate health, high damage (sneak attack), moderate armor.
 
-    -> ''')
+    -> '''
+
+        choice = None
+        while choice is None:
+            choice = input(choiceDialog)
             # noinspection PyProtectedMember
             if choice not in Classes._member_names_:
                 choice = None
