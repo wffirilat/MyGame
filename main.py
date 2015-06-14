@@ -5,8 +5,6 @@ from game import Game
 import command.commands
 from story.Class import Classes
 from story.location import Location
-from entity.monsterSize import Sizes
-from entity.monsterType import Types
 from story.locationregistry import LocationRegistry
 
 __author__ = 'xwffirilat'
@@ -15,9 +13,9 @@ command.commands.init()
 
 
 def loadMods():
-    import ModLoader
+    import Mods
 
-    return ModLoader
+    return Mods
 
 
 def initLocations():
@@ -26,7 +24,7 @@ def initLocations():
 
 
 def main():
-    loadMods()
+    Mods = loadMods()
 
     game = Game()
 
@@ -35,7 +33,8 @@ def main():
 
     initLocations()
 
-    m = Monster(Sizes.Small, Types.Beast)
+    m = Monster(Mods.ExtendedSizes.Micro, Mods.ExtendedTypes.Dragon)
+
     LocationRegistry['Cave'].addNpcs(m)
 
     game.player.location = LocationRegistry['Cave']
