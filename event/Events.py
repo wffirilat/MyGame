@@ -153,37 +153,50 @@ def noResult(eventClass: EventType):
     return eventClass
 
 
-# Experimental type checking of annotations... It works a little.
-def EventHandler(eventType=None, priority=Priority.NORMAL, receiveCanceled=False):
-    """
-    Decorate event handlers with this.
+class EventHandler:
+    def __init__(self, eventType=None, priority=Priority.NORMAL, receiveCanceled=False):
+        self.func = lambda event: None
+        self.eventType = eventType
+        self.priority = priority
+        self.receiveCanceled = receiveCanceled
+        self.isSetup = False
 
-    The handler should take a single event and (usually) modify it or act on it.
+    def _setup(self, func):
+        """sets up EventHandler to call func,
+        grabbing handled EventType from annotations if necessary"""
+        self.func = func
 
-    :param eventType: the type of event to handle
-    :param priority: Priority to handle event on
-    :param receiveCanceled: whether to receive canceled events
-    """
+        if self.eventType is None:
+            for ann in self.func.__annotations__:
+                # search through annotations for EventType
+                # should it be required to name parameter 'event'?
+                if type(self.func.__annotations__[ann]) is EventType:
+                    self.eventType = self.func.__annotations__[ann]
+                    break
+            else:
+                raise TypeError('You need to specify eventType, either with parameters or annotations.')
 
-    @decorator
-    def deco(func):
-        def call(event):
-            func(event)
+        self.eventType.listeners[self.priority].append(self)
 
+        self.isSetup = True
+
+    def __call__(self, event):
+        if not self.isSetup:
+            # setup self and return
+            self._setup(event)
+            return self
+        else:
+            self.func(event)
             # return event automagically
             return event
 
-        call.receiveCanceled = receiveCanceled
-        if eventType is not None:
-            eventType.listeners[priority].append(call)
-        else:
-            try:
-                for i in func.__annotations__:
-                    et = func.__annotations__[i]
-                # noinspection PyUnboundLocalVariable
-                et.listeners[priority].append(call)
-            except UnboundLocalError:
-                raise TypeError('You need to specify eventType, either with parameters or annotations.')
-        return call
+    def disable(self):
 
-    return deco
+        try:
+            self.eventType.listeners[self.priority].remove(self)
+        except ValueError:
+            pass
+
+    def reenable(self):
+        if self not in self.eventType.listeners[self.priority]:
+            self.eventType.listeners[self.priority].append(self)
