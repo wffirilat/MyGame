@@ -17,13 +17,9 @@ class GUI(Tk):
         self.player = player
         self.promptCallback = None
         self.currentInput = None
-        self.info = Toplevel(self)
-        self.title("Console")
-        self.info.title("Player Info")
-        self.info.protocol('WM_DELETE_WINDOW', lambda: None)
-        self.loc = LabelEntry(self.info, 'Location: ', self.player.location.name)
+        self.loc = LabelEntry(self, 'Location: ', self.player.location.name)
         self.loc.grid(row=0, column=0)
-        self.inv = EquipmentView(self.info, self.player)
+        self.inv = EquipmentView(self, self.player)
         self.inv.grid(row=1, column=0)
         self.console = Console(self, height=9)
         self.console.grid(row=2, column=0, columnspan=3)

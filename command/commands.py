@@ -3,7 +3,6 @@ import sys
 from command.command import Command
 import MainRegistry
 from command.registry import CommandRegistry
-from internal.exception import CommandException
 from story.locationregistry import LocationRegistry
 
 __author__ = 'xwffirilat'
@@ -31,7 +30,6 @@ def _playerAttack(target):
 
 def _help(command):
     return CommandRegistry[command].__doc__
-
 
 
 def init():

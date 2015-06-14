@@ -7,7 +7,7 @@ from internal.exception import CommandException
 
 class Interpreter:
     def __init__(self, GUI):
-        MainRegistry.setInterperter(self)
+        MainRegistry.setInterpreter(self)
         self.GUI = GUI
 
     def interpret(self, string: str):

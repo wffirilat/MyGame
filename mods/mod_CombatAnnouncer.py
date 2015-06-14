@@ -2,7 +2,7 @@ from ModLoader import Mod
 
 __author__ = 'xwffirilat'
 
-from event.Events import EventHandler, Priority
+from event.Events import EventHandler
 from event.EventLib import EntityAttackedEvent, EntityAttackEvent
 
 import MainRegistry

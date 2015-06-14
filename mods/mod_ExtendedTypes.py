@@ -2,7 +2,7 @@ from ModLoader import Mod
 
 __author__ = 'xwffirilat'
 
-from entity.monsterType import Types, Type
+from entity.monsterType import Type
 
 
 @Mod(modid='ExtendedTypes')

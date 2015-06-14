@@ -114,7 +114,7 @@ class Event(metaclass=EventType):
         if self.__class__.isCancelable:
             self._canceled = val
         elif val:
-            raise RuntimeError("Attemped to cancel an un-cancelable event")
+            raise RuntimeError("Attempted to cancel an un-cancelable event")
 
     @property
     def result(self):
@@ -126,7 +126,7 @@ class Event(metaclass=EventType):
             self._result = val
         else:
             raise RuntimeError(
-                "Attemped to assign result to result-less event")
+                "Attempted to assign result to result-less event")
 
     def cancel(self):
         self.canceled = True

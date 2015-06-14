@@ -16,6 +16,7 @@ def getPlayer():
 def getGUI():
     return _GUI
 
+
 def getGameVersion():
     return 0.1
 
@@ -24,7 +25,8 @@ def setPlayer(player):
     global _player
     _player = player
 
-def setInterperter(interpreter):
+
+def setInterpreter(interpreter):
     global _interpreter
     _interpreter = interpreter
 
