@@ -14,9 +14,9 @@ class Size:
         self.desc = desc
 
 
-class Sizes(Size, Enum):
-    Small = 20, 3, 3, 4, 1, '{} half your size'
-    Medium = 30, 5, 5, 3, 2, '{} as large as you'
-    Large = 50, 8, 8, 2, 3, '{} twice your height'
-    Huge = 70, 10, 10, 1, 4, 'fearsomely sized {}', 1
-    Gargantuan = 100, 13, 12, 0, 5, '{} larger than a house', 2
+class Sizes(Enum):
+    Small = Size(20, 3, 3, 4, 1, '{} half your size')
+    Medium = Size(30, 5, 5, 3, 2, '{} as large as you')
+    Large = Size(50, 8, 8, 2, 3, '{} twice your height')
+    Huge = Size(70, 10, 10, 1, 4, 'fearsomely sized {}', 1)
+    Gargantuan = Size(100, 13, 12, 0, 5, '{} larger than a house', 2)
