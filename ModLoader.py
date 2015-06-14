@@ -1,3 +1,6 @@
+from abc import abstractmethod
+from abc import ABCMeta
+
 import MainRegistry
 
 __author__ = 'xwffirilat'
@@ -15,3 +18,20 @@ class Mod:
         cls.version = self.version
         cls.gameVersion = self.gameversion
         setattr(Mods, self.modid, cls)
+
+
+class ModManager(metaclass=ABCMeta):
+    @staticmethod
+    @abstractmethod
+    def load():
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def disable():
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def reenable():
+        pass
